@@ -14,7 +14,7 @@ Este proyecto contiene las siguientes entidades principales:
 - **GestorMedicamentos**
   - id (Long, PK)
   - usuario (Usuario, relación 1:1, FK, único, obligatorio)
-  - medicamentos (Lista<Medicamento>, relación 1:N)
+  - medicamentos (Lista<Medicamento>, relación 0..N)
 
 - **Medicamento**
   - nombre (String, PK, único, obligatorio)
@@ -28,26 +28,26 @@ Este proyecto contiene las siguientes entidades principales:
 
 - Un **Usuario** tiene un único **GestorMedicamentos** (1:1)
 - Un **GestorMedicamentos** pertenece a un único **Usuario** (1:1)
-- Un **GestorMedicamentos** puede tener muchos **Medicamento** (1:N)
+- Un **GestorMedicamentos** puede tener cero o muchos (**0..N**) **Medicamento** (0..N)
 - Un **Medicamento** pertenece a un único **GestorMedicamentos** (N:1)
 
 ## Diagrama E/R (texto)
 
 ```
-Usuario (1) ──── (1) GestorMedicamentos (1) ──── (N) Medicamento
+Usuario (1) ──── (1) GestorMedicamentos (1) ──── (0..N) Medicamento
 ```
 
 O, de forma más detallada:
 
 ```
-+----------------+      1    1      +-----------------------+      1    N      +----------------+
-|    Usuario     |------------------| GestorMedicamentos   |------------------|  Medicamento   |
-+----------------+                  +-----------------------+                  +----------------+
-| id (PK)        |                  | id (PK)              |                  | nombre (PK)    |
-| correo (U)     |                  | usuario_id (FK, U)   |                  | ...            |
-| usuario        |                  |                      |                  |                |
-| contrasena     |                  |                      |                  |                |
-+----------------+                  +-----------------------+                  +----------------+
++----------------+      1    1      +-----------------------+      0..N    1      +----------------+
+|    Usuario     |------------------| GestorMedicamentos   |----------------------|  Medicamento   |
++----------------+                  +-----------------------+                      +----------------+
+| id (PK)        |                  | id (PK)              |                      | nombre (PK)    |
+| correo (U)     |                  | usuario_id (FK, U)   |                      | ...            |
+| usuario        |                  |                      |                      |                |
+| contrasena     |                  |                      |                      |                |
++----------------+                  +-----------------------+                      +----------------+
 ```
 
 **Leyenda:**
